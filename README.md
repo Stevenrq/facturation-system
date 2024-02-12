@@ -59,6 +59,9 @@ El proyecto utiliza Spring Boot junto con las siguientes tecnologías y dependen
 1. Clona este repositorio: git clone https://github.com/Stevenrq/facturation-system.git
 2. Importa el proyecto en tu IDE favorito como un proyecto Maven.
 3. Configura tu base de datos MySQL en el archivo application.properties.
+4. Cuentas de usuario:
+    - **USER** username: user, password: user
+    - **ADMIN** username: admin, password: admin
 
 ## Ejecución
 

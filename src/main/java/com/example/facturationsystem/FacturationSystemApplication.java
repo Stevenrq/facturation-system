@@ -33,12 +33,13 @@ public class FacturationSystemApplication implements CommandLineRunner {
         uploadFileService.deleteAll(); // Elimina todos los archivos existentes
         uploadFileService.init(); // Inicializa el servicio de carga de archivos
 
-        String password = "12345";
+        // Crear contraseñas cifradas con BCryptPasswordEncoder para user y admin
+        String userPassword = "user";
+        String adminPassword = "admin";
+        String userBCryptPassword = bCryptPasswordEncoder.encode(userPassword);
+        String adminBCryptPassword = bCryptPasswordEncoder.encode(adminPassword);
 
-        // Genera y muestra contraseñas encriptadas de ejemplo
-        for (int i = 0; i < 2; i++) {
-            String bCryptPassword = bCryptPasswordEncoder.encode(password);
-            System.out.println("Contraseña: " + bCryptPassword);
-        }
+        System.out.println("Contraseña user: ".concat(userBCryptPassword));
+        System.out.println("Contraseña admin: ".concat(adminBCryptPassword));
     }
 }

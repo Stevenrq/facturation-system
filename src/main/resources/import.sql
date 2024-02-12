@@ -38,8 +38,8 @@ INSERT INTO invoices_items (quantity, invoice_id, product_id) VALUES (5, 2, 7);
 INSERT INTO invoices_items (quantity, invoice_id, product_id) VALUES (5, 2, 8);
 
 -- Usuarios con sus Roles
-INSERT INTO users (username, password, enabled) VALUES ('user' , '$2a$10$PvC8M5KfPsx5l.QF5dUJ/.60TzD.n6o0jmKfKF.JdiOZpS/UTLYle', 1);
-INSERT INTO users (username, password, enabled) VALUES ('admin' , '$2a$10$pcltl6ZiJGayK2b95QW5NeJRJt3s0tJ6qtVqgusPNG3vW5W9CP0Ne', 1);
+INSERT INTO users (username, password, enabled) VALUES ('user' , '$2a$10$wdQiF7li3hIw7YFqzJE.juM/8kCF//0GwLWwZS7DUWuoZTiXnouFm', 1);
+INSERT INTO users (username, password, enabled) VALUES ('admin' , '$2a$10$xZ92yjhV1cPFm4tQJ3kQg.8pfGyqHkBm/NjKEwGnVo6B/08lXhsFO', 1);
 
 INSERT INTO authorities (user_id, authority) VALUES (1, 'ROLE_USER');
 INSERT INTO authorities (user_id, authority) VALUES (2, 'ROLE_ADMIN');
