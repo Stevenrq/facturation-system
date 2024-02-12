@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{layout/layout :: head}"></head>
+
+<body>
+  <header th:replace="~{layout/layout :: header}"></header>
+
+  <h1 th:text="${h1}" class="text-center my-5"></h1>
+
+  <div class="text-center">
+    <img class="d-block mx-auto" th:src="@{/images/invoice-software.jpg}" alt="Spring logo"
+      style="height: 200px; width: 200; text-align: end; border-radius: 10px;">
+  </div>
+
+  <footer th:replace="~{layout/layout :: footer}"></footer>
+</body>
+
+</html>

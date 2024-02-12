@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<body>
+
+  <script type="text/javascript" th:fragment="javascript">
+
+    /**
+     * Permite a los usuarios buscar productos mientras escriben en el campo de búsqueda
+     * #search_product y seleccionar un producto de la lista de sugerencias proporcionadas por el servidor.
+     */
+    $(document).ready(function () {
+      // Configura el autocompletado para el campo de búsqueda de productos.
+      $("#search_product").autocomplete({
+        source: function (request, response) {
+          // Realiza una solicitud AJAX para obtener sugerencias de productos basadas en el término de búsqueda.
+          $.ajax({
+            url: "/invoice/upload-products/" + request.term,
+            dataType: "json",
+            data: {
+              term: request.term
+            },
+            success: function (data) {
+              // Mapea los datos recibidos para que se ajusten al formato esperado por el autocompletado.
+              response($.map(data, function (item) {
+                return {
+                  value: item.id,
+                  label: item.name,
+                  price: item.price,
+                };
+              }));
+            },
+          });
+        },
+        // Acción a realizar cuando se selecciona un elemento del autocompletado.
+        select: function (event, ui) {
+          if (itemsHelper.hasProduct(ui.item.value)) {
+            itemsHelper.increasesQuantity(ui.item.value, ui.item.price);
+            return false;
+          }
+
+          // Obtenemos el contenido del template-items con el id invoiceItemsTemplate
+          var line = $("#invoiceItemsTemplate").html();
+
+          // Reemplazamos el parámetro de la plantilla por el valor
+          line = line.replace(/{ID}/g, ui.item.value);
+          line = line.replace(/{NAME}/g, ui.item.label);
+          line = line.replace(/{PRICE}/g, ui.item.price);
+
+          // Agregamos los datos del producto al tbody de la tabla
+          $("#uploadItemProducts tbody").append(line);
+
+          itemsHelper.calculateAmount(ui.item.value, ui.item.price, 1);
+          return false;
+        }
+      });
+
+      /*
+      * Elimina el tbody con el id "invoiceItemsTemplate" antes de realizar el envío del formulario.
+      *
+      * Nota: Esto se hace porque lanza un error al tomar el ID del input de este tbody, ya que el ID de este input es un string
+      * y no es numérico (no es parte del artículo de la factura).
+      * Por lo cual se agregaría un artículo de factura más con datos incorrectos.
+      */
+      $("form").submit(function () {
+        $("#invoiceItemsTemplate").remove();
+        return;
+      });
+
+    });
+
+    var itemsHelper = {
+
+      // Calcula el importe total del artículo de la factura
+      calculateAmount: function (id, price, quantity) {
+        $("#total_amount_" + id).html(parseFloat(price) * parseFloat(quantity));
+        this.calculateGrandTotal();
+      },
+
+      // Busca línea por línea en el detalle de la factura si existe un producto
+      hasProduct: function (id) {
+        var result = false;
+
+        $('input[name="item_id[]"]').each(function () {
+          if (parseFloat(id) == parseFloat($(this).val())) {
+            result = true;
+          }
+        });
+        return result;
+      },
+
+      // Incrementa la cantidad de los artículos de la factura
+      increasesQuantity: function (id, price) {
+        var quantity = $("#quantity_" + id).val() ? parseFloat($("#quantity_" + id).val()) : 0;
+        $("#quantity_" + id).val(++quantity);
+        this.calculateAmount(id, price, quantity);
+      },
+
+      // Elimina un artículo de la factura
+      deleteInvoiceItem: function (id) {
+        $("#row_" + id).remove();
+        this.calculateGrandTotal();
+      },
+
+      // Calcula el grán total de la factura
+      calculateGrandTotal: function () {
+        total = 0;
+
+        // busca en todos los span donde el id sea total_amount_
+        $('span[id^="total_amount_"]').each(function () {
+
+          // Por cada elemento encontrado obtenemos su contenido HTML (total_amount_)
+          total += parseFloat($(this).html());
+
+          // Asignamos el gran total
+          $('#grand_total').html(total);
+        })
+      }
+    }
+
+
+    /*
+    * Evita que se envíe el formulario cuando se presiona la tecla Enter.
+    * Se aplica al actualizar la cantidad de un artículo de la factura.
+    */
+    $(document).keypress(
+      function (event) {
+        if (event.which == '13') {
+          event.preventDefault();
+        }
+      });
+
+  </script>
+
+</body>
+
+</html>
