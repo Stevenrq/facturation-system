@@ -20,10 +20,10 @@
 						<thead>
 							<tr>
 								<th sec:authorize="hasRole('ROLE_USER')">Id</th>
-								<th>Nombre</th>
-								<th>Apellido</th>
-								<th>Correo</th>
-								<th>Creado en</th>
+								<th th:text="#{text.customer.name}">Nombre</th>
+								<th th:text="#{text.customer.lastName}">Apellido</th>
+								<th th:text="#{text.customer.email}">Correo</th>
+								<th th:text="#{text.customer.createdAt}">Fecha de creación</th>
 								<th sec:authorize="hasRole('ROLE_ADMIN')">Crear factura</th>
 								<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
 								<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
