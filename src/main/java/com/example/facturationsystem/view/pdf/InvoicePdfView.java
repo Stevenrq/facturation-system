@@ -27,7 +27,7 @@ import java.util.Map;
  * Implementa
  * {@link org.springframework.web.servlet.view.document.AbstractPdfView}.
  */
-@Component("invoice/see")
+@Component("invoice/see.pdf")
 public class InvoicePdfView extends AbstractPdfView {
 
     @Autowired
@@ -36,17 +36,6 @@ public class InvoicePdfView extends AbstractPdfView {
     @Autowired
     private LocaleResolver localeResolver;
 
-    /**
-     * Método para construir el documento PDF que muestra los detalles de una
-     * factura.
-     *
-     * @param model    el modelo de datos para la vista
-     * @param document el documento PDF que se está construyendo
-     * @param writer   el escritor PDF
-     * @param request  la solicitud HTTP
-     * @param response la respuesta HTTP
-     * @throws Exception si ocurre algún error al construir el documento PDF
-     */
     @SuppressWarnings("null")
     @Override
     protected void buildPdfDocument(Map<String, Object> model, @Nonnull Document document, @Nullable PdfWriter writer,
@@ -103,7 +92,6 @@ public class InvoicePdfView extends AbstractPdfView {
         table3.addCell(cell);
         table3.addCell(invoice.calculateTotal().toString());
 
-        // Agrega las tablas al documento PDF
         document.add(table);
         document.add(table2);
         document.add(table3);

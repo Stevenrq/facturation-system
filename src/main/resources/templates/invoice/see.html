@@ -12,8 +12,8 @@
       <div class="card-body">
         <h4 class="card-title mb-3">
           <a th:href="@{'/see/' + ${invoice.customer.id}}" class="btn btn-outline-primary btn-sm">&laquo; Volver</a>
-          <a class="btn btn-sm btn-danger float-end" th:href="@{'/invoice/see/' + ${invoice.id}(format=pdf)}">Exportar a
-            PDF</a>
+          <a class="btn btn-sm btn-danger float-end mx-2" th:href="@{'/invoice/see/' + ${invoice.id}(format=pdf)}">PDF</a>
+          <a class="btn btn-sm btn-success float-end" th:href="@{'/invoice/see/' + ${invoice.id}(format=xlsx)}">Excel</a>
         </h4>
 
         <ul class="list-group my-2">
