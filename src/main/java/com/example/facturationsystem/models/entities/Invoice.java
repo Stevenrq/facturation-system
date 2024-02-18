@@ -2,6 +2,7 @@ package com.example.facturationsystem.models.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -77,6 +78,14 @@ public class Invoice implements Serializable {
         this.createdAt = createAt;
     }
 
+    /**
+     * Obtiene el cliente asociado a la factura.
+     *
+     * @return el cliente asociado a la factura.
+     * @apiNote Este método está marcado como @XmlTransient, lo que significa que no será serializado/deserializado por
+     * los procesos de marshalling/unmarshalling de XML.
+     */
+    @XmlTransient
     public Customer getCustomer() {
         return customer;
     }
