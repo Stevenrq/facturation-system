@@ -13,10 +13,12 @@
 
 				<h2 class="card-title">
 					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/form}" class="btn btn-primary mb-2">Crear cliente</a>
-					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-success float-end mx-2"
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-success float-end mx-1"
 					   th:href="@{'/list'(format=csv)}">CSV</a>
-					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-primary float-end"
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-primary float-end mx-1"
 					   th:href="@{'/list'(format=xml)}">XML</a>
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-warning float-end mx-1"
+					   th:href="@{'/list'(format=json)}">JSON</a>
 				</h2>
 
 				<div class="table-responsive">

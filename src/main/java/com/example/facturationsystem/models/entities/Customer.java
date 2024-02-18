@@ -1,8 +1,12 @@
 package com.example.facturationsystem.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,11 +36,17 @@ public class Customer implements Serializable {
 
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 
     private String photo;
 
+    /**
+     * La anotación {@code @JsonManagedReference} indica que este atributo será considerado durante la serialización de
+     * objetos JSON, permitiendo mantener la integridad de la relación entre clientes y facturas.
+     */
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Invoice> invoices;
 
     public Customer() {

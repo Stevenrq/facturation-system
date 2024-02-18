@@ -1,5 +1,6 @@
 package com.example.facturationsystem.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -18,8 +19,14 @@ public class InvoiceItem implements Serializable {
 
     private Integer quantity;
 
+    /**
+     * La anotación {@code @JsonIgnoreProperties} se utiliza para indicar las propiedades de la instancia de Hibernate a
+     * ignorar durante la serialización de objetos JSON, evitando así problemas con la inicialización perezosa
+     * ({@code hibernateLazyInitializer}) y el controlador ({@code handler}).
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
 
     public void setId(Long id) {

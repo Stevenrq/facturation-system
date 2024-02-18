@@ -1,5 +1,6 @@
 package com.example.facturationsystem.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -30,7 +31,12 @@ public class Invoice implements Serializable {
     @Column(name = "created_at")
     private Date createdAt;
 
+    /**
+     * La anotación {@code @JsonBackReference} indica que este atributo no será considerado durante la serialización de
+     * objetos JSON para evitar ciclos de referencia en la representación JSON.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Customer customer;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -77,6 +83,7 @@ public class Invoice implements Serializable {
     public void setCreatedAt(Date createAt) {
         this.createdAt = createAt;
     }
+
 
     /**
      * Obtiene el cliente asociado a la factura.
