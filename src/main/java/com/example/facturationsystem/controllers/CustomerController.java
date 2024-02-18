@@ -124,7 +124,7 @@ public class CustomerController {
                         "Forma usando HttpServletRequest: Hola ".concat(auth.getName()).concat(" NO tienes acceso"));
             }
         }
-        Pageable pageRequest = PageRequest.of(page, 10);
+        Pageable pageRequest = PageRequest.of(page, 5);
         Page<Customer> customers = customerService.findAll(pageRequest);
         PageRender<Customer> pageRender = new PageRender<>("/list", customers);
 

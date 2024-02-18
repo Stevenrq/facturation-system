@@ -11,8 +11,10 @@
 			<div class="card-header text-center" th:text="${title}"></div>
 			<div class="card-body">
 
-				<h2 class="card-title mb-4">
-					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/form}" class="btn btn-primary">Crear cliente</a>
+				<h2 class="card-title">
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/form}" class="btn btn-primary mb-2">Crear cliente</a>
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-success float-end"
+					   th:href="@{'/list'(format=csv)}">Exportar a CSV</a>
 				</h2>
 
 				<div class="table-responsive">
