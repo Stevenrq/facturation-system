@@ -4,6 +4,7 @@ import com.example.facturationsystem.models.entities.Customer;
 import com.example.facturationsystem.services.CustomerService;
 import com.example.facturationsystem.services.UploadFileService;
 import com.example.facturationsystem.util.paginator.PageRender;
+import com.example.facturationsystem.view.xml.CustomerList;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.apache.commons.logging.Log;
@@ -35,6 +36,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -68,6 +70,11 @@ public class CustomerController {
         model.put("title", "Formulario de registro");
         model.put("customer", customer);
         return "form";
+    }
+
+    @GetMapping("/list-rest")
+    public @ResponseBody CustomerList listRest() {
+        return new CustomerList(customerService.findAll());
     }
 
     /**
