@@ -85,8 +85,4 @@ Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, por fa
 
 ## Autor
 
-Steven [stevenrq8@gmail.com](mailto:stevenrq8@gmail.com).
-
-## Licencia
-
-Este proyecto está licenciado bajo la **Licencia MIT**.
+Steven - [stevenrq8@gmail.com](mailto:stevenrq8@gmail.com).
